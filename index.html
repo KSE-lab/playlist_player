@@ -7,147 +7,153 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Playlist Player</title>
 
-    <!-- Tailwind CSS (Full Engine) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- FontAwesome for Authentic Retro & Player Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- React & ReactDOM Standalone -->
+    <!-- React & Babel Standalone -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-    
-    <!-- Babel Standalone for JSX compilation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@400;600;800&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=VT323&family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
       
       body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
         user-select: none;
         -webkit-user-select: none;
         touch-action: manipulation;
+        background-color: #d8d4c7;
+        color: #2b2b2b;
+      }
+
+      /* Retro Soft Cream Theme */
+      .bg-retro-cream {
+        background-color: #e5e0d8;
+      }
+      .bg-retro-card {
+        background-color: #dcd7cb;
+      }
+      .border-retro {
+        border-color: #c8c3b5;
+      }
+
+      /* iPod Metallic 3D Wheel */
+      .ipod-body {
+        background: linear-gradient(180deg, #f2efe9 0%, #ded9cd 100%);
+        box-shadow: inset 0 1px 3px rgba(255,255,255,0.8), 0 8px 24px rgba(0,0,0,0.12);
+      }
+      .ipod-screen-box {
+        background: #d8e5f2;
+        border: 3px solid #2d3748;
+        box-shadow: inset 2px 2px 6px rgba(0,0,0,0.25);
+      }
+      .ipod-wheel-disc {
+        background: radial-gradient(circle at 50% 50%, #fbf9f5 0%, #e8e4da 70%, #dbd6c9 100%);
+        box-shadow: inset 0 2px 4px rgba(255,255,255,0.9), 0 6px 16px rgba(0,0,0,0.15);
+      }
+
+      /* Game Boy Retro Plastic Body & Matrix Screen */
+      .gb-body {
+        background-color: #d1d5c4;
+        border: 4px solid #a3a893;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      }
+      .gb-matrix-screen {
+        background-color: #8c946e;
+        border: 4px solid #575e43;
+        box-shadow: inset 3px 3px 8px rgba(0,0,0,0.35);
+      }
+      .gb-lcd-inner {
+        background-color: #9ea680;
+        border: 2px solid #6b7352;
+      }
+      .gb-dpad-cross {
+        background-color: #242424;
+        box-shadow: 2px 3px 6px rgba(0,0,0,0.3);
+      }
+      .gb-btn-magenta {
+        background: radial-gradient(circle at 35% 35%, #b51c50 0%, #7d0d34 100%);
+        box-shadow: 2px 4px 8px rgba(0,0,0,0.3), inset 0 2px 2px rgba(255,255,255,0.3);
       }
       .font-pixel {
         font-family: 'VT323', monospace;
       }
-
-      /* iPod Wheel 3D Metallic Effect */
-      .ipod-wheel-3d {
-        background: radial-gradient(circle at 50% 50%, #fcfbf9 0%, #e6e2d8 70%, #d8d3c5 100%);
-        box-shadow: 
-          inset 0 2px 5px rgba(255,255,255,0.8),
-          0 10px 25px rgba(0,0,0,0.15),
-          0 2px 5px rgba(0,0,0,0.1);
-      }
-      .ipod-btn-inner {
-        background: radial-gradient(circle at 40% 40%, #ffffff 0%, #e8e4da 100%);
-        box-shadow: 
-          0 4px 10px rgba(0,0,0,0.15),
-          inset 0 1px 2px rgba(255,255,255,0.9);
-      }
-
-      /* Game Boy 3D Plastic & LCD Screen Effect */
-      .gb-screen-lcd {
-        background: #8c946e;
-        box-shadow: inset 3px 3px 8px rgba(0,0,0,0.4);
-      }
-      .gb-dpad {
-        background: #2b2b2b;
-        box-shadow: 2px 4px 8px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.2);
-      }
-      .gb-btn-ab {
-        background: radial-gradient(circle at 35% 35%, #ad244f 0%, #7a1535 100%);
-        box-shadow: 3px 5px 10px rgba(0,0,0,0.35), inset 0 2px 3px rgba(255,255,255,0.3);
-      }
-
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 4px;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
-      }
     </style>
   </head>
-  <body class="bg-slate-950 text-slate-100 flex justify-center items-center min-h-screen">
+  <body class="flex justify-center items-center min-h-screen p-0 sm:p-4">
 
-    <div id="root" class="w-full max-w-md h-screen max-h-[880px] sm:h-[840px] sm:rounded-[40px] overflow-hidden shadow-2xl relative border border-slate-800"></div>
+    <div id="root" class="w-full max-w-md h-screen sm:h-[840px] bg-retro-cream sm:rounded-[36px] overflow-hidden shadow-2xl relative border-0 sm:border border-retro flex flex-col justify-between"></div>
 
     <script type="text/babel">
       const { useState, useEffect } = React;
 
-      const INITIAL_TRACKS = [
+      // 먼작귀(Chiikawa) 기본 재생목록 데이터셋
+      const CHIIKAWA_TRACKS = [
         {
-          id: 'ep1',
-          title: '1화 - 시작되는 모험',
-          artist: 'Playlist Player Official',
-          albumArt: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&auto=format&fit=crop&q=80',
+          id: 'chiikawa-ep1',
+          title: '1화 - 먼작귀 야하! 시작되는 일상',
+          artist: '먼작귀 공식',
+          albumArt: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&auto=format&fit=crop&q=80',
           youtubeId: 'dQw4w9WgXcQ',
-          durationSec: 1200,
+          durationSec: 120,
           progressSec: 0
         },
         {
-          id: 'ep50',
-          title: '50화 - 격돌하는 마음',
-          artist: 'Playlist Player Official',
-          albumArt: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=80',
+          id: 'chiikawa-ep2',
+          title: '2화 - 하치와레와 풀뽑기 검정 시험',
+          artist: '먼작귀 공식',
+          albumArt: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&auto=format&fit=crop&q=80',
           youtubeId: 'dQw4w9WgXcQ',
-          durationSec: 1470,
-          progressSec: 420
+          durationSec: 180,
+          progressSec: 45
         },
         {
-          id: 'ep161',
-          title: '161화 - 새로운 장의 시작',
-          artist: 'Playlist Player Official',
-          albumArt: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&auto=format&fit=crop&q=80',
+          id: 'chiikawa-ep3',
+          title: '3화 - 우사기와의 기이한 모험',
+          artist: '먼작귀 공식',
+          albumArt: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=500&auto=format&fit=crop&q=80',
           youtubeId: 'dQw4w9WgXcQ',
-          durationSec: 1430,
+          durationSec: 210,
           progressSec: 0
         }
       ];
 
       function App() {
-        const [activeTab, setActiveTab] = useState('home');
+        const [activeTab, setActiveTab] = useState('home'); 
         const [mode, setMode] = useState('music'); 
         const [uiStyle, setUiStyle] = useState('ipod'); 
-        const [isDarkMode, setIsDarkMode] = useState(false);
-        const [useAdFreeEngine, setUseAdFreeEngine] = useState(true);
+        const [libSubTab, setLibSubTab] = useState('playlists');
+        const [searchSubTab, setSearchSubTab] = useState('url');
 
+        const [user, setUser] = useState(null);
         const [playlists, setPlaylists] = useState([
-          { id: 'pl-1', name: '내 플레이리스트', tracks: INITIAL_TRACKS }
+          { id: 'pl-chiikawa', name: '먼작귀 재생목록', tracks: CHIIKAWA_TRACKS }
         ]);
-        const [activePlaylistId, setActivePlaylistId] = useState('pl-1');
+        const [activePlaylistId, setActivePlaylistId] = useState('pl-chiikawa');
         const [currentIndex, setCurrentIndex] = useState(0);
+
         const [isPlaying, setIsPlaying] = useState(false);
         const [currentTime, setCurrentTime] = useState(0);
         const [isShuffle, setIsShuffle] = useState(false);
         const [isRepeat, setIsRepeat] = useState(false);
-        const [skipNotification, setSkipNotification] = useState('');
+
+        const [inputUrl, setInputUrl] = useState('');
+        const [inputBatchUrls, setInputBatchUrls] = useState('');
 
         const currentPlaylist = playlists.find(p => p.id === activePlaylistId) || playlists[0];
-        const activeTracks = currentPlaylist.tracks;
-        const currentTrack = activeTracks[currentIndex] || INITIAL_TRACKS[0];
+        const activeTracks = currentPlaylist ? currentPlaylist.tracks : [];
+        const currentTrack = activeTracks[currentIndex] || CHIIKAWA_TRACKS[0];
 
-        const getEmbedUrl = (youtubeId) => {
-          if (useAdFreeEngine) {
-            return `https://www.youtube-nocookie.com/embed/${youtubeId}?enablejsapi=1&autoplay=1&rel=0&modestbranding=1&iv_load_policy=3`;
+        const handleGoogleLogin = () => {
+          if (user) {
+            setUser(null);
+          } else {
+            setUser({ name: '고은새', email: 'eunsae10045@gmail.com' });
           }
-          return `https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&autoplay=1`;
-        };
-
-        const getEpisodeNumber = (title) => {
-          const match = title ? title.match(/(\d+)\s*화/) : null;
-          return match ? parseInt(match[1], 10) : null;
-        };
-
-        const getSkipThreshold = (idx, title) => {
-          if (idx === 0) return 0;
-          const ep = getEpisodeNumber(title);
-          if (ep !== null && ep >= 161) return 35.1;
-          return 30.1;
         };
 
         const handleNextTrack = () => {
@@ -170,24 +176,6 @@
             interval = setInterval(() => {
               setCurrentTime((prev) => {
                 const next = prev + 1;
-                
-                // Red Bar progress update
-                setPlaylists(prevPl => prevPl.map(p => p.id === activePlaylistId ? {
-                  ...p,
-                  tracks: p.tracks.map((t, idx) => idx === currentIndex ? { ...t, progressSec: next } : t)
-                } : p));
-
-                const remaining = currentTrack.durationSec - next;
-                const skipSec = getSkipThreshold(currentIndex, currentTrack.title);
-
-                if (skipSec > 0 && remaining <= skipSec && remaining > 0) {
-                  setSkipNotification(`[엔딩 스킵: ${skipSec}초 전 자동 다음 화]`);
-                  setTimeout(() => {
-                    setSkipNotification('');
-                    handleNextTrack();
-                  }, 700);
-                }
-
                 if (next >= currentTrack.durationSec) {
                   handleNextTrack();
                   return 0;
@@ -199,7 +187,7 @@
             clearInterval(interval);
           }
           return () => clearInterval(interval);
-        }, [isPlaying, currentTrack, currentIndex, activePlaylistId]);
+        }, [isPlaying, currentTrack, currentIndex]);
 
         const formatTime = (secs) => {
           const m = Math.floor(secs / 60);
@@ -207,69 +195,59 @@
           return `${m}:${s < 10 ? '0' : ''}${s}`;
         };
 
-        const mainThemeClass = isDarkMode ? 'bg-slate-900 text-slate-100' : 'bg-slate-100 text-slate-900';
-
         return (
-          <div className={`w-full h-full flex flex-col justify-between p-4 relative ${mainThemeClass}`}>
+          <div className="w-full h-full flex flex-col justify-between p-4 relative bg-retro-cream text-slate-800 select-none">
             
             {/* Header */}
-            <header className="flex justify-between items-center pb-2 z-10 border-b border-slate-500/20">
-              <div className="flex items-center gap-2">
-                <i className="fa-solid fa-compact-disc text-rose-500 text-lg animate-spin" style={{ animationDuration: '6s' }}></i>
-                <h1 className="text-base font-extrabold tracking-tight">Retro Player Pro</h1>
-              </div>
-              <button onClick={() => setIsDarkMode(!isDarkMode)} className="p-2 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">
-                <i className={`fa-solid ${isDarkMode ? 'fa-sun text-amber-400' : 'fa-moon text-indigo-600'}`}></i>
+            <header className="flex justify-between items-center pb-3 border-b border-stone-300">
+              <h1 className="text-xl font-extrabold tracking-tight text-slate-900">Playlist Player</h1>
+              <button 
+                onClick={handleGoogleLogin} 
+                className="bg-white/80 border border-stone-300 shadow-sm px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 hover:bg-white active:scale-95 transition"
+              >
+                <span className="text-red-500 font-black">G</span> 
+                {user ? user.name : 'Google로 로그인'}
               </button>
             </header>
 
-            {/* Main Area */}
+            {/* Main Content Area */}
             <main className="flex-1 overflow-y-auto py-3">
               
-              {/* HOME TAB */}
+              {/* ==================== HOME TAB ==================== */}
               {activeTab === 'home' && (
                 <div className="flex flex-col items-center space-y-4">
                   
-                  {/* Mode Selector */}
-                  <div className="w-full bg-slate-200 dark:bg-slate-800 p-1 rounded-xl flex text-xs font-bold">
-                    <button onClick={() => setMode('music')} className={`flex-1 py-1.5 rounded-lg flex items-center justify-center gap-2 transition ${mode === 'music' ? 'bg-white text-slate-900 shadow dark:bg-slate-700 dark:text-white' : 'opacity-60'}`}>
-                      <i className="fa-solid fa-music"></i> 음악
+                  {/* 음악 / 영상 Switcher */}
+                  <div className="w-full bg-[#d5d0c3] p-1 rounded-2xl flex border border-stone-300">
+                    <button 
+                      onClick={() => setMode('music')} 
+                      className={`flex-1 py-2 rounded-xl text-xs font-bold transition ${mode === 'music' ? 'bg-white shadow text-slate-900' : 'text-slate-600'}`}
+                    >
+                      음악
                     </button>
-                    <button onClick={() => setMode('video')} className={`flex-1 py-1.5 rounded-lg flex items-center justify-center gap-2 transition ${mode === 'video' ? 'bg-white text-slate-900 shadow dark:bg-slate-700 dark:text-white' : 'opacity-60'}`}>
-                      <i className="fa-solid fa-tv"></i> 영상
+                    <button 
+                      onClick={() => setMode('video')} 
+                      className={`flex-1 py-2 rounded-xl text-xs font-bold transition ${mode === 'video' ? 'bg-white shadow text-slate-900' : 'text-slate-600'}`}
+                    >
+                      영상
                     </button>
                   </div>
 
-                  {skipNotification && (
-                    <div className="w-full bg-emerald-500 text-white text-xs font-bold py-1.5 px-3 rounded-lg text-center shadow animate-pulse">
-                      {skipNotification}
-                    </div>
-                  )}
-
                   {/* iPod Classic Skin */}
                   {uiStyle === 'ipod' && (
-                    <div className="w-full bg-[#ebe7df] text-slate-800 p-5 rounded-[36px] shadow-2xl border-4 border-[#dcd7cb] flex flex-col items-center space-y-5">
-                      
-                      {/* Glass LCD Display */}
-                      <div className="w-full bg-[#c2daf0] rounded-2xl border-4 border-slate-700/70 p-3 shadow-inner min-h-[190px] flex flex-col justify-between relative overflow-hidden">
-                        <div className="flex justify-between items-center text-[10px] font-extrabold text-slate-600 border-b border-slate-400/60 pb-1">
-                          <span>iPod</span>
-                          <div className="flex items-center gap-1">
-                            <i className="fa-solid fa-play text-[8px] text-emerald-600"></i>
-                            <i className="fa-solid fa-battery-three-quarters text-slate-700"></i>
-                          </div>
-                        </div>
-
+                    <div className="w-full ipod-body p-5 rounded-[36px] border-4 border-[#ded9cd] flex flex-col items-center space-y-5">
+                      <div className="w-full ipod-screen-box rounded-xl p-3 min-h-[170px] flex flex-col justify-between">
+                        <div className="text-[10px] font-extrabold text-slate-600 text-center border-b border-slate-400/50 pb-1">iPod</div>
+                        
                         {mode === 'music' ? (
                           <div className="flex items-center gap-3 my-auto">
-                            <img src={currentTrack.albumArt} className="w-20 h-20 rounded-lg object-cover shadow-md border border-slate-400/80" alt="Cover" />
+                            <img src={currentTrack.albumArt} className="w-16 h-16 rounded-lg object-cover shadow border border-slate-400" alt="Cover" />
                             <div className="flex-1 min-w-0">
                               <h4 className="font-bold text-xs truncate text-slate-900">{currentTrack.title}</h4>
                               <p className="text-[11px] text-slate-600 truncate mt-0.5">{currentTrack.artist}</p>
-                              
-                              <div className="mt-3 space-y-1">
-                                <div className="w-full bg-slate-300 h-2 rounded-full overflow-hidden border border-slate-400">
-                                  <div className="bg-red-600 h-full transition-all" style={{ width: `${(currentTime / currentTrack.durationSec) * 100}%` }}></div>
+                              <div className="mt-2 space-y-1">
+                                <div className="w-full bg-slate-300 h-1.5 rounded-full overflow-hidden border border-slate-400">
+                                  <div className="bg-red-600 h-full" style={{ width: `${(currentTime / currentTrack.durationSec) * 100}%` }}></div>
                                 </div>
                                 <div className="flex justify-between text-[9px] font-mono text-slate-600">
                                   <span>{formatTime(currentTime)}</span>
@@ -279,39 +257,34 @@
                             </div>
                           </div>
                         ) : (
-                          <div className="w-full h-32 bg-black rounded-lg overflow-hidden">
-                            <iframe className="w-full h-full" src={getEmbedUrl(currentTrack.youtubeId)} title="Video"></iframe>
+                          <div className="w-full h-32 bg-black rounded overflow-hidden">
+                            <iframe className="w-full h-full" src={`https://www.youtube-nocookie.com/embed/${currentTrack.youtubeId}?autoplay=1`} title="Video"></iframe>
                           </div>
                         )}
                       </div>
 
-                      {/* 3D Click Wheel */}
-                      <div className="w-48 h-48 rounded-full ipod-wheel-3d relative flex items-center justify-center select-none active:scale-[0.99] transition">
-                        <button onClick={() => setIsPlaying(!isPlaying)} className="w-20 h-20 rounded-full ipod-btn-inner flex items-center justify-center text-slate-700 font-bold active:scale-95 transition">
-                          <i className={`fa-solid ${isPlaying ? 'fa-pause' : 'fa-play ml-0.5'} text-lg`}></i>
+                      {/* 3D Wheel */}
+                      <div className="w-48 h-48 rounded-full ipod-wheel-disc relative flex items-center justify-center">
+                        <button onClick={() => setIsPlaying(!isPlaying)} className="w-16 h-16 rounded-full bg-white shadow-md border border-stone-300 flex items-center justify-center text-slate-700 active:scale-95 transition">
+                          {isPlaying ? <i className="fa-solid fa-pause text-base"></i> : <i className="fa-solid fa-play text-base ml-0.5"></i>}
                         </button>
-
-                        <button onClick={() => setIsShuffle(!isShuffle)} className={`absolute top-3 text-[11px] font-bold ${isShuffle ? 'text-emerald-600' : 'text-slate-400'}`}>MENU</button>
-                        <button onClick={handlePrevTrack} className="absolute left-4 text-slate-500 hover:text-slate-900"><i className="fa-solid fa-backward-step text-sm"></i></button>
-                        <button onClick={handleNextTrack} className="absolute right-4 text-slate-500 hover:text-slate-900"><i className="fa-solid fa-forward-step text-sm"></i></button>
-                        <button onClick={() => setIsRepeat(!isRepeat)} className={`absolute bottom-3 text-xs ${isRepeat ? 'text-emerald-600' : 'text-slate-400'}`}><i className="fa-solid fa-play-pause"></i></button>
+                        <button onClick={() => setIsShuffle(!isShuffle)} className={`absolute top-3 text-slate-500 text-xs ${isShuffle ? 'text-emerald-600' : ''}`}><i className="fa-solid fa-shuffle"></i></button>
+                        <button onClick={handlePrevTrack} className="absolute left-4 text-slate-600"><i className="fa-solid fa-backward-step text-sm"></i></button>
+                        <button onClick={handleNextTrack} className="absolute right-4 text-slate-600"><i className="fa-solid fa-forward-step text-sm"></i></button>
+                        <button onClick={() => setIsRepeat(!isRepeat)} className={`absolute bottom-3 text-slate-500 text-xs ${isRepeat ? 'text-emerald-600' : ''}`}><i className="fa-solid fa-repeat"></i></button>
                       </div>
-
                     </div>
                   )}
 
                   {/* Game Boy Skin */}
                   {uiStyle === 'gameboy' && (
-                    <div className="w-full bg-[#c4c8a5] p-5 rounded-3xl border-4 border-[#9a9e7b] shadow-2xl flex flex-col items-center space-y-4 text-[#1a240d]">
-                      
-                      {/* LCD Green Matrix Screen */}
-                      <div className="w-full gb-screen-lcd rounded-xl border-4 border-[#52573e] p-3 relative">
-                        <div className="flex justify-between items-center text-[10px] font-pixel font-bold text-[#2e331e] pb-1 border-b border-[#6d7353] mb-2 tracking-widest">
+                    <div className="w-full gb-body p-5 rounded-3xl flex flex-col items-center space-y-4 text-[#1d2610]">
+                      <div className="w-full gb-matrix-screen rounded-xl p-3 relative">
+                        <div className="flex justify-between items-center text-[9px] font-pixel font-bold text-[#2d331e] pb-1 border-b border-[#6e7555] mb-2 tracking-widest">
                           <span>DOT MATRIX WITH STEREO SOUND</span>
                           <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
                         </div>
-
-                        <div className="bg-[#9ea680] border-2 border-[#69704e] rounded p-2">
+                        <div className="gb-lcd-inner rounded p-2">
                           {mode === 'music' ? (
                             <div className="space-y-2 font-pixel">
                               <div className="flex items-center gap-2">
@@ -333,115 +306,160 @@
                             </div>
                           ) : (
                             <div className="w-full h-32 bg-black rounded overflow-hidden">
-                              <iframe className="w-full h-full" src={getEmbedUrl(currentTrack.youtubeId)} title="Video"></iframe>
+                              <iframe className="w-full h-full" src={`https://www.youtube-nocookie.com/embed/${currentTrack.youtubeId}?autoplay=1`} title="Video"></iframe>
                             </div>
                           )}
                         </div>
                       </div>
 
-                      {/* GameBoy Controls */}
-                      <div className="w-full flex justify-between items-center px-3 pt-2">
-                        {/* D-PAD */}
-                        <div className="relative w-24 h-24 flex items-center justify-center">
-                          <div className="w-8 h-24 gb-dpad rounded-md absolute"></div>
-                          <div className="w-24 h-8 gb-dpad rounded-md absolute"></div>
-                          <button onClick={handlePrevTrack} className="absolute left-1 text-slate-300 text-xs"><i className="fa-solid fa-caret-left"></i></button>
-                          <button onClick={handleNextTrack} className="absolute right-1 text-slate-300 text-xs"><i className="fa-solid fa-caret-right"></i></button>
+                      <div className="w-full flex justify-between items-center px-2 pt-2">
+                        <div className="relative w-20 h-20 flex items-center justify-center">
+                          <div className="w-7 h-20 gb-dpad-cross rounded-md absolute"></div>
+                          <div className="w-20 h-7 gb-dpad-cross rounded-md absolute"></div>
+                          <button onClick={handlePrevTrack} className="absolute left-1 text-slate-400 text-xs"><i className="fa-solid fa-caret-left"></i></button>
+                          <button onClick={handleNextTrack} className="absolute right-1 text-slate-400 text-xs"><i className="fa-solid fa-caret-right"></i></button>
                         </div>
-
-                        {/* A / B Buttons */}
                         <div className="flex gap-3 rotate-[-15deg]">
-                          <button onClick={() => setIsPlaying(!isPlaying)} className="w-12 h-12 rounded-full gb-btn-ab text-white font-bold flex items-center justify-center text-sm">
+                          <button onClick={() => setIsPlaying(!isPlaying)} className="w-12 h-12 rounded-full gb-btn-magenta text-white font-bold flex items-center justify-center text-sm">
                             {isPlaying ? <i className="fa-solid fa-pause"></i> : <i className="fa-solid fa-play ml-0.5"></i>}
                           </button>
                         </div>
                       </div>
-
                     </div>
                   )}
 
-                  {/* Modern Flat Skin */}
+                  {/* Modern Default Skin */}
                   {uiStyle === 'default' && (
                     <div className="w-full space-y-4 pt-2">
-                      <div className="w-full aspect-square rounded-3xl overflow-hidden shadow-xl bg-slate-900 border border-slate-700">
+                      <div className="w-full aspect-square rounded-3xl overflow-hidden shadow-lg bg-slate-900 border border-stone-300">
                         {mode === 'music' ? (
                           <img src={currentTrack.albumArt} className="w-full h-full object-cover" alt="Art" />
                         ) : (
-                          <iframe className="w-full h-full" src={getEmbedUrl(currentTrack.youtubeId)} title="Video"></iframe>
+                          <iframe className="w-full h-full" src={`https://www.youtube-nocookie.com/embed/${currentTrack.youtubeId}?autoplay=1`} title="Video"></iframe>
                         )}
                       </div>
-
                       <div className="text-center">
                         <h3 className="font-extrabold text-base truncate">{currentTrack.title}</h3>
                         <p className="text-xs opacity-60 mt-0.5">{currentTrack.artist}</p>
                       </div>
-
-                      <div className="space-y-1">
-                        <div className="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
-                          <div className="bg-red-600 h-full transition-all" style={{ width: `${(currentTime / currentTrack.durationSec) * 100}%` }}></div>
-                        </div>
-                        <div className="flex justify-between text-xs opacity-60 font-mono">
-                          <span>{formatTime(currentTime)}</span>
-                          <span>{formatTime(currentTrack.durationSec)}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex justify-between items-center px-4 pt-2">
-                        <button onClick={handlePrevTrack} className="text-xl opacity-70 hover:opacity-100"><i className="fa-solid fa-backward-step"></i></button>
-                        <button onClick={() => setIsPlaying(!isPlaying)} className="w-14 h-14 bg-rose-600 text-white rounded-full flex items-center justify-center shadow-lg text-lg">
-                          <i className={`fa-solid ${isPlaying ? 'fa-pause' : 'fa-play ml-1'}`}></i>
-                        </button>
-                        <button onClick={handleNextTrack} className="text-xl opacity-70 hover:opacity-100"><i className="fa-solid fa-forward-step"></i></button>
-                      </div>
                     </div>
                   )}
 
                 </div>
               )}
 
-              {/* LIBRARY TAB */}
+              {/* ==================== LIBRARY TAB ==================== */}
               {activeTab === 'library' && (
-                <div className="space-y-3">
-                  <h2 className="text-lg font-bold">보관함</h2>
-                  <div className="space-y-2">
-                    {activeTracks.map((t, idx) => (
-                      <div key={t.id} onClick={() => { setCurrentIndex(idx); setIsPlaying(true); setActiveTab('home'); }} className={`p-3 rounded-2xl flex items-center gap-3 cursor-pointer transition border ${idx === currentIndex ? 'bg-rose-500/10 border-rose-500/40' : 'bg-slate-500/10 border-transparent'}`}>
-                        <img src={t.albumArt} className="w-12 h-12 rounded-xl object-cover" alt="Art" />
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-bold text-xs truncate">{t.title}</h4>
-                          <p className="text-[11px] opacity-60">{t.artist}</p>
-                          <div className="w-full bg-slate-400/20 h-1 rounded-full mt-2 overflow-hidden">
-                            <div className="bg-red-600 h-full" style={{ width: `${(t.progressSec / t.durationSec) * 100}%` }}></div>
-                          </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-lg font-bold">보관함</h2>
+                    <button className="text-xs font-bold text-slate-500">+ 새 목록</button>
+                  </div>
+
+                  <div className="flex bg-[#d5d0c3] p-1 rounded-2xl border border-stone-300 text-xs font-bold">
+                    <button onClick={() => setLibSubTab('playlists')} className={`flex-1 py-1.5 rounded-xl transition ${libSubTab === 'playlists' ? 'bg-white shadow text-slate-900' : 'text-slate-600'}`}>재생목록</button>
+                    <button onClick={() => setLibSubTab('queue')} className={`flex-1 py-1.5 rounded-xl transition ${libSubTab === 'queue' ? 'bg-white shadow text-slate-900' : 'text-slate-600'}`}>다음 재생</button>
+                    <button onClick={() => setLibSubTab('history')} className={`flex-1 py-1.5 rounded-xl transition ${libSubTab === 'history' ? 'bg-white shadow text-slate-900' : 'text-slate-600'}`}>시청 기록</button>
+                  </div>
+
+                  {libSubTab === 'playlists' && (
+                    <div className="space-y-3">
+                      <div className="bg-retro-card p-4 rounded-2xl border border-stone-300 flex justify-between items-center shadow-sm">
+                        <div>
+                          <h4 className="font-bold text-sm">내 재생목록 (먼작귀 포함)</h4>
+                          <p className="text-xs text-slate-500 mt-0.5">{activeTracks.length}곡</p>
+                        </div>
+                        <div className="flex gap-3 text-slate-500">
+                          <button><i className="fa-solid fa-pen"></i></button>
+                          <button><i className="fa-solid fa-trash"></i></button>
                         </div>
                       </div>
-                    ))}
-                  </div>
+
+                      <div className="space-y-2">
+                        {activeTracks.map((item, idx) => (
+                          <div key={item.id} onClick={() => { setCurrentIndex(idx); setIsPlaying(true); setActiveTab('home'); }} className={`p-3 rounded-2xl flex items-center gap-3 cursor-pointer border transition ${idx === currentIndex ? 'bg-white border-rose-300 shadow-sm' : 'bg-retro-card border-stone-300'}`}>
+                            <img src={item.albumArt} className="w-12 h-12 rounded-xl object-cover" alt="Art" />
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-bold text-xs truncate">{item.title}</h4>
+                              <p className="text-[11px] opacity-60 mt-0.5">{item.artist}</p>
+                              <div className="w-full bg-stone-300 h-1.5 rounded-full mt-2 overflow-hidden">
+                                <div className="bg-red-600 h-full" style={{ width: `${(item.progressSec / item.durationSec) * 100}%` }}></div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {/* SETTINGS TAB */}
+              {/* ==================== SEARCH & URL TAB ==================== */}
+              {activeTab === 'search' && (
+                <div className="space-y-4">
+                  <h2 className="text-lg font-bold">추가 · 검색</h2>
+
+                  <div className="flex bg-[#d5d0c3] p-1 rounded-2xl border border-stone-300 text-xs font-bold">
+                    <button onClick={() => setSearchSubTab('url')} className={`flex-1 py-1.5 rounded-xl transition ${searchSubTab === 'url' ? 'bg-white shadow text-slate-900' : 'text-slate-600'}`}>URL</button>
+                    <button onClick={() => setSearchSubTab('search')} className={`flex-1 py-1.5 rounded-xl transition ${searchSubTab === 'search' ? 'bg-white shadow text-slate-900' : 'text-slate-600'}`}>검색</button>
+                  </div>
+
+                  {searchSubTab === 'url' && (
+                    <div className="space-y-3">
+                      <div className="bg-retro-card p-3.5 rounded-2xl border border-stone-300 space-y-2">
+                        <label className="text-xs font-bold text-slate-600">재생목록 선택</label>
+                        <select className="w-full p-2.5 bg-white rounded-xl text-xs font-bold border border-stone-300 outline-none">
+                          <option>내 재생목록</option>
+                          <option>먼작귀 전용 모음</option>
+                        </select>
+                      </div>
+
+                      <div className="bg-retro-card p-3.5 rounded-2xl border border-stone-300 space-y-2">
+                        <label className="text-xs font-bold text-slate-600">영상 / 재생목록 / 채널 URL</label>
+                        <input type="text" value={inputUrl} onChange={(e) => setInputUrl(e.target.value)} placeholder="youtu.be/... · list=PL... · @채널" className="w-full p-2.5 bg-white rounded-xl text-xs border border-stone-300 outline-none" />
+                        <div className="grid grid-cols-3 gap-2 pt-1">
+                          <button className="py-2 bg-stone-300 rounded-xl text-xs font-bold">재생</button>
+                          <button className="py-2 bg-stone-300 rounded-xl text-xs font-bold">다음 재생</button>
+                          <button className="py-2 bg-stone-300 rounded-xl text-xs font-bold">목록 추가</button>
+                        </div>
+                      </div>
+
+                      <div className="bg-retro-card p-3.5 rounded-2xl border border-stone-300 space-y-2">
+                        <div className="flex justify-between items-center">
+                          <label className="text-xs font-bold text-slate-600">여러 URL 추가</label>
+                          <span className="text-[10px] text-slate-500">한 줄에 하나</span>
+                        </div>
+                        <textarea value={inputBatchUrls} onChange={(e) => setInputBatchUrls(e.target.value)} placeholder="영상 URL&#10;재생목록 URL (list=PL...)&#10;채널 URL (youtube.com/@...)" className="w-full h-24 p-2.5 bg-white rounded-xl text-xs border border-stone-300 outline-none resize-none"></textarea>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* ==================== SETTINGS TAB ==================== */}
               {activeTab === 'settings' && (
                 <div className="space-y-4">
                   <h2 className="text-lg font-bold">설정</h2>
                   
-                  <div className="bg-slate-500/10 p-3.5 rounded-2xl space-y-2">
-                    <label className="text-xs font-bold opacity-80">UI 테마 스킨 선택</label>
-                    <select value={uiStyle} onChange={(e) => setUiStyle(e.target.value)} className="w-full p-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold border border-slate-700 outline-none">
-                      <option value="ipod">iPod Classic (3D Click Wheel)</option>
-                      <option value="gameboy">Game Boy Retro (LCD Matrix)</option>
-                      <option value="default">Modern Clean UI</option>
-                    </select>
+                  <div className="bg-retro-card p-3.5 rounded-2xl border border-stone-300 space-y-1">
+                    <span className="text-[11px] font-bold text-slate-500">이용 권한</span>
+                    <p className="text-xs font-bold">로그인 없이 이용 가능</p>
                   </div>
 
-                  <div className="bg-slate-500/10 p-3.5 rounded-2xl flex justify-between items-center">
-                    <div>
-                      <h4 className="text-xs font-bold">광고 우회 엔진 (youtube-nocookie)</h4>
-                      <p className="text-[10px] opacity-60">영상 및 음원 스킵 시 광고 유무 최소화</p>
-                    </div>
-                    <button onClick={() => setUseAdFreeEngine(!useAdFreeEngine)} className={`w-10 h-6 rounded-full transition relative ${useAdFreeEngine ? 'bg-emerald-500' : 'bg-slate-600'}`}>
-                      <span className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-transform ${useAdFreeEngine ? 'left-5' : 'left-1'}`}></span>
+                  <div className="bg-retro-card p-3.5 rounded-2xl border border-stone-300 space-y-2">
+                    <span className="text-[11px] font-bold text-slate-500">계정</span>
+                    <button onClick={handleGoogleLogin} className="w-full py-2.5 bg-[#8b1d43] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow">
+                      <span className="font-black">G</span> {user ? 'Google 로그아웃' : 'Google로 로그인'}
                     </button>
+                  </div>
+
+                  <div className="bg-retro-card p-3.5 rounded-2xl border border-stone-300 space-y-2">
+                    <label className="text-xs font-bold text-slate-600">UI 스타일 선택</label>
+                    <select value={uiStyle} onChange={(e) => setUiStyle(e.target.value)} className="w-full p-2.5 bg-white rounded-xl text-xs font-bold border border-stone-300 outline-none">
+                      <option value="ipod">iPod Classic (3D Wheel)</option>
+                      <option value="gameboy">Game Boy (Retro LCD)</option>
+                      <option value="default">기본 UI</option>
+                    </select>
                   </div>
                 </div>
               )}
@@ -449,13 +467,14 @@
             </main>
 
             {/* Bottom Tab Bar */}
-            <nav className="flex justify-around items-center pt-2.5 pb-1 border-t border-slate-500/20 text-xs font-semibold">
+            <nav className="flex justify-around items-center pt-3 pb-1 border-t border-stone-300 text-xs font-semibold">
               {[
-                { id: 'home', label: '플레이어', icon: 'fa-compact-disc' },
-                { id: 'library', label: '보관함', icon: 'fa-folder-closed' },
-                { id: 'settings', label: '설정', icon: 'fa-sliders' }
+                { id: 'home', label: '홈', icon: 'fa-house' },
+                { id: 'library', label: '보관함', icon: 'fa-box-archive' },
+                { id: 'search', label: '검색', icon: 'fa-magnifying-glass' },
+                { id: 'settings', label: '설정', icon: 'fa-gear' }
               ].map(item => (
-                <button key={item.id} onClick={() => setActiveTab(item.id)} className={`flex flex-col items-center gap-1 transition ${activeTab === item.id ? 'text-rose-500 font-bold' : 'opacity-50 hover:opacity-100'}`}>
+                <button key={item.id} onClick={() => setActiveTab(item.id)} className={`flex flex-col items-center gap-1 transition ${activeTab === item.id ? 'text-slate-900 font-bold' : 'opacity-50 hover:opacity-100'}`}>
                   <i className={`fa-solid ${item.icon} text-base`}></i>
                   <span className="text-[10px]">{item.label}</span>
                 </button>
