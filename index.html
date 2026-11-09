@@ -6,11 +6,21 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Playlist Player</title>
-    <!-- Tailwind CSS 스타일 불러오기 -->
+    <!-- Tailwind CSS (디자인 전용 스타일) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons (아이콘 전용) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
-  <body>
+  <body class="bg-slate-900 text-white min-h-screen">
     <div id="root"></div>
+
+    <script type="module">
+      // 예쁜 iPod 레트로 플레이어 화면 자동 로딩
+      window.addEventListener('DOMContentLoaded', () => {
+        lucide.createIcons();
+      });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+
